@@ -1,0 +1,14 @@
+{
+  "scale": 2,
+  "model": "EIMN_L",
+  "datasets": ["Set5", "Set14"],
+  "data_root": "data/benchmark",
+  "vendor_eimn": "vendor/EIMN",
+  "vendor_basicsr": "vendor/BasicSR",
+  "weight": "vendor/EIMN/Weights/EIMN_L_x2.pth",
+  "device": "cuda",
+  "crop_border": 2,
+  "test_y_channel": true,
+  "quantize_before_metric": true,
+  "paper_reference": {"Set5": [38.26, 0.9620], "Set14": [34.14, 0.9227]}
+}

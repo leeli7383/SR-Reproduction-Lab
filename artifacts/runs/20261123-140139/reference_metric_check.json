@@ -1,0 +1,128 @@
+{
+  "verified_pairs": 19,
+  "max_psnr_abs_delta": 3.814697265625e-06,
+  "max_ssim_abs_delta": 0.0,
+  "implementation_tolerance": {
+    "psnr_db": 1e-05,
+    "ssim": 1e-07,
+    "reason": "float32 original Y-channel arithmetic versus BasicSR float64 metric arithmetic; not paper matching tolerance"
+  },
+  "passed": true,
+  "scope": "original EIMN metric wrapper versus BasicSR metrics on actual saved benchmark outputs; does not prove data equals author data distribution",
+  "per_image": [
+    {
+      "dataset": "Set5",
+      "image": "img_001",
+      "psnr_abs_delta": 3.814697265625e-06,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set5",
+      "image": "img_002",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set5",
+      "image": "img_003",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set5",
+      "image": "img_004",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set5",
+      "image": "img_005",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_001",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_002",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_003",
+      "psnr_abs_delta": 1.9073486328125e-06,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_004",
+      "psnr_abs_delta": 1.9073486328125e-06,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_005",
+      "psnr_abs_delta": 1.9073486328125e-06,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_006",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_007",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_008",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_009",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_010",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_011",
+      "psnr_abs_delta": 3.814697265625e-06,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_012",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_013",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    },
+    {
+      "dataset": "Set14",
+      "image": "img_014",
+      "psnr_abs_delta": 0.0,
+      "ssim_abs_delta": 0.0
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "EIMN",
+    "repository": "liux520/EIMN",
+    "version": "6a712bac203971c5002b55c2557b2d7367f1a77c",
+    "source": "https://codeload.github.com/liux520/EIMN/zip/6a712bac203971c5002b55c2557b2d7367f1a77c",
+    "archive_path": "D:\\CodexTools\\sr-reproduction\\downloads\\EIMN-6a712bac203971c5002b55c2557b2d7367f1a77c.zip",
+    "install_path": "D:\\SR-Reproduction-Lab\\vendor\\EIMN",
+    "sha256": "1ff234ed7c0cd3540f5867c69d6baea53a1fb284f01daa8eb302453df5821612"
+  },
+  {
+    "name": "BasicSR",
+    "repository": "XPixelGroup/BasicSR",
+    "version": "8d56e3a045f9fb3e1d8872f92ee4a4f07f886b0a",
+    "source": "https://codeload.github.com/XPixelGroup/BasicSR/zip/8d56e3a045f9fb3e1d8872f92ee4a4f07f886b0a",
+    "archive_path": "D:\\CodexTools\\sr-reproduction\\downloads\\BasicSR-8d56e3a045f9fb3e1d8872f92ee4a4f07f886b0a.zip",
+    "install_path": "D:\\SR-Reproduction-Lab\\vendor\\BasicSR",
+    "sha256": "06fb24dd8d4debc9cf9d502a9eb81164018911c8d82b30662e179583761613f0"
+  }
+]

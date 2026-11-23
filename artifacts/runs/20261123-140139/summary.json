@@ -1,0 +1,70 @@
+{
+  "timestamp_utc": "2026-11-23T06:02:00.331784+00:00",
+  "config": {
+    "scale": 2,
+    "model": "EIMN_L",
+    "datasets": [
+      "Set5",
+      "Set14"
+    ],
+    "data_root": "data/benchmark",
+    "vendor_eimn": "vendor/EIMN",
+    "vendor_basicsr": "vendor/BasicSR",
+    "weight": "vendor/EIMN/Weights/EIMN_L_x2.pth",
+    "device": "cuda",
+    "crop_border": 2,
+    "test_y_channel": true,
+    "quantize_before_metric": true,
+    "paper_reference": {
+      "Set5": [
+        38.26,
+        0.962
+      ],
+      "Set14": [
+        34.14,
+        0.9227
+      ]
+    }
+  },
+  "limited_run": false,
+  "weight_sha256": "2dda2f4b44c98f9e142e1cf4663f2a38970754e9b334b70fd4b210d45124d29f",
+  "torch": "2.12.1+cu132",
+  "device": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+  "protocol": "BasicSR numpy RGB->BGR; Y channel; configured clipping/rounding; arithmetic per-image mean. Original EIMN uses uint8 clipping/rounding.",
+  "results": [
+    {
+      "dataset": "Set5",
+      "method": "EIMN_L",
+      "count": 5,
+      "psnr": 38.27564904897232,
+      "ssim": 0.9615176494776903,
+      "paper_psnr_delta": 0.01564904897232111
+    },
+    {
+      "dataset": "Set5",
+      "method": "OpenCV_bicubic",
+      "count": 5,
+      "psnr": 33.972591114980595,
+      "ssim": 0.9329511943529927,
+      "paper_psnr_delta": null
+    },
+    {
+      "dataset": "Set14",
+      "method": "EIMN_L",
+      "count": 14,
+      "psnr": 34.161942742809096,
+      "ssim": 0.9225989245000003,
+      "paper_psnr_delta": 0.02194274280909525
+    },
+    {
+      "dataset": "Set14",
+      "method": "OpenCV_bicubic",
+      "count": 14,
+      "psnr": 30.554993196550473,
+      "ssim": 0.8750315077365654,
+      "paper_psnr_delta": null
+    }
+  ],
+  "note": "OpenCV bicubic is an engineering baseline, not claimed identical to MATLAB bicubic. One timed forward per image, not a latency distribution.",
+  "non_finite_json_policy": "Explicit strings Infinity/-Infinity/NaN, not non-standard numeric literals"
+}

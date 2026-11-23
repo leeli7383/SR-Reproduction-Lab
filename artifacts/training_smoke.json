@@ -1,0 +1,13 @@
+{
+  "purpose": "synthetic diagnostic only; NOT paper training or quality reproduction",
+  "seed": 3407,
+  "steps": 3,
+  "losses": [
+    0.15954388678073883,
+    0.15933182835578918,
+    0.15912047028541565
+  ],
+  "parameters_changed": true,
+  "checkpoint_reload": true,
+  "training_data": "one deterministic random 16x16 RGB tensor; bilinear synthetic target"
+}

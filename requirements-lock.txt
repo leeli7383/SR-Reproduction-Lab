@@ -1,0 +1,11 @@
+# Python 3.13; torch/torchvision CUDA wheels: https://download.pytorch.org/whl/cu132
+torch==2.12.1+cu132
+torchvision==0.27.1+cu132
+numpy==2.5.4
+pillow==13.0.0
+opencv-python-headless==5.1.0.95
+scipy==1.18.1
+einops==0.8.2
+natsort==8.4.0
+tqdm==4.70.1
+pyyaml==6.0.4

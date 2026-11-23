@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-23",
+  "python": "3.13.18 | packaged by Anaconda, Inc. | (main, Oct 27 2026, 00:53:21) [MSC v.1942 64 bit (AMD64)]",
+  "executable": "D:\\CodexTools\\sr-reproduction\\venv\\Scripts\\python.exe",
+  "base_environment": "D:\\conda-envs\\pytorch",
+  "isolation": "venv --system-site-packages; added dependencies local to D:/CodexTools/sr-reproduction/venv",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "packages": {
+    "torch": "2.12.1+cu132",
+    "torchvision": "0.27.1+cu132",
+    "numpy": "2.5.4",
+    "pillow": "13.0.0",
+    "opencv-python-headless": "5.1.0.95",
+    "scipy": "1.18.1",
+    "einops": "0.8.2",
+    "natsort": "8.4.0",
+    "tqdm": "4.70.1",
+    "pyyaml": "6.0.4"
+  },
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+    "total_memory_bytes": 4294443008,
+    "cuda_runtime": "13.2",
+    "available": true
+  },
+  "smoke_test": {
+    "strict_weight_load": true,
+    "parameters": 981724,
+    "input_shape": [
+      1,
+      3,
+      32,
+      32
+    ],
+    "output_shape": [
+      1,
+      3,
+      64,
+      64
+    ],
+    "finite_output": true,
+    "official_ssim_self": 1.0,
+    "weights_sha256": "2dda2f4b44c98f9e142e1cf4663f2a38970754e9b334b70fd4b210d45124d29f"
+  }
+}

@@ -1,0 +1,8 @@
+[project]
+name = "sr-reproduction-lab"
+version = "0.1.0"
+description = "Auditable EIMN reproduction and BasicSR-based evaluation"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
