@@ -1,51 +1,43 @@
 # SR Reproduction Lab
 
-两个相互衔接的项目：**BasicSR评测工具**与 **EIMN（ECAI 2023）论文复现**。
+这个项目用 **EIMN 官方预训练模型**复核论文中的单图超分辨率结果，并用 **BasicSR 的指标实现**构建可复跑的评测工具。给定一张低分辨率图片，模型将宽和高各放大两倍。工具把输出和已知的高清参考图比较，并用 OpenCV 双三次插值作为对照。
 
-## 范围
+首轮实验使用 Set5 的 5 对和 Set14 的 14 对 LR/HR 图片。每对图片评测两种方法，因此结果表有 **38 条数据**。所有 19 张 EIMN 输出都使用作者原版指标复核过。
 
-第一阶段：固定作者代码和官方权重，完成EIMN_L ×2在Set5/Set14的预训练评估、逐图CSV、指标协议与来源记录。预训练评估不等于从零重训论文；合成数据反向传播检查也不等于论文训练。
+| 测试集 | EIMN 实测 PSNR / SSIM | 论文表 1 PSNR / SSIM |
+| --- | --- | --- |
+| Set5 ×2 | 38.2756 dB / 0.9615 | 38.26 dB / 0.9620 |
+| Set14 ×2 | 34.1619 dB / 0.9226 | 34.14 dB / 0.9227 |
 
-2026-11-23已完成首阶段：11项测试通过，Set5实测38.275649dB、Set14实测34.161943dB，原版指标交叉核对通过；与论文分数仍有小幅差异，详见[实测报告](docs/RESULTS_STAGE1.md)。
+实测与论文值接近。当前评测图片来自 SelfExSR 分发版本，与 EIMN 作者使用的数据是否逐像素一致仍待核对。训练部分已完成合成输入上的三步检查，完整重训、消融和端侧部署仍待开展。[首阶段实测报告](docs/RESULTS_STAGE1.md)
 
-自有代码位于`sr_lab/`和`tools/`。上游代码在`vendor/`，下载数据在`data/`，这些大文件不提交。上游来源和许可见`docs/ENVIRONMENT.md`、`docs/DATASETS.md`及其各自LICENSE。自有代码使用MIT许可，不改变第三方代码、数据、权重的许可。
+## 第一次打开项目
 
-## 当前运行方式
+1. **想知道每个文件做什么**，看[项目与文件指南](docs/PROJECT_GUIDE.md)。它逐项列出项目文件的作用、输入、输出，并给出一张图片从读取到写入报告的实例。
+2. **想直接看结果**，打开[首轮汇总](artifacts/runs/20261123-140139/summary.json)和[逐图数据](artifacts/runs/20261123-140139/per_image.csv)。[最新成功运行索引](artifacts/latest_stage1.json)记录本地一键流程最近一次通过的结果目录。
+3. **想在本机复跑**，按[环境说明](docs/ENVIRONMENT.md)准备可用的 Python、PyTorch 和 CUDA，再运行下面的入口。换机器时使用该机器的解释器路径。
 
-在本目录打开PowerShell，使用`docs/ENVIRONMENT.md`指定的隔离Python解释器：
+## 运行
 
-推荐执行`./tools/run_stage1.ps1`，它会依次检查上游、数据、测试、完整评估和训练诊断，保存到带时间戳的`artifacts/runs/`。中途失败会停止，不继续发布结果。它不会调用付费API。最新一次成功结果由`artifacts/latest_stage1.json`指向。
+在项目根目录打开 PowerShell。本机已有隔离环境时可执行：
 
 ```powershell
-# 替换为环境文档记录的实际解释器
-$srPython = 'D:/CodexTools/sr-reproduction/venv/Scripts/python.exe'
-& $srPython tools/bootstrap_runtime.py
-& $srPython tools/prepare_benchmarks.py
-& $srPython -m unittest discover -s tests -v
-& $srPython -m sr_lab.evaluate --config configs/eimn_x2.json
-& $srPython -m sr_lab.train_smoke
+./tools/run_stage1.ps1 -Python 'D:/CodexTools/sr-reproduction/venv/Scripts/python.exe'
 ```
 
-第一次需要准备固定版本上游与依赖，来源、版本、校验及下载记录见`docs/ENVIRONMENT.md`和`D:/CodexTools/downloads.json`。完整评估默认要求CUDA；没有CUDA时应显式修改配置并记录环境变化。
+脚本依次准备上游源码及权重、下载和校验数据、运行测试、评测两套数据、复核指标、检查反向传播和检查点恢复。成功后终端显示结果目录，形如 `artifacts/runs/20261123-140139/summary.json`。各步日志保存在 `logs/`，成功后才更新 `artifacts/latest_stage1.json`。一键流程无需配置或调用外部 AI。
 
-## 输出与评测协议
+若源码、数据和环境均已就绪，可以先跑每个测试集的一张图。以下命令将快速检查的结果写入本地忽略目录：
 
-- `artifacts/evaluation_x2/per_image.csv`：逐图EIMN与OpenCV bicubic结果、输入哈希、推理时间。
-- `artifacts/evaluation_x2/summary.json`：配置、权重哈希、实测均值与作者参考值的差异。
-- `artifacts/evaluation_x2/images/`：本地可视化输出，不自动上传原始/衍生测试图片。
-- `artifacts/training_smoke.json`：合成输入的3步梯度与保存恢复检查。
-- `logs/`：本地执行和API记录，不含密钥，不提交。
+```powershell
+$srPython = 'D:/CodexTools/sr-reproduction/venv/Scripts/python.exe'
+& $srPython -m sr_lab.evaluate --config configs/eimn_x2.json --limit 1 --output artifacts/outputs/quickstart
+```
 
-评测用作者原版EIMN网络与strict权重加载，调用BasicSR官方指标源码。色彩转换、裁边、量化约定写入配置与报告。OpenCV bicubic只作为明确命名的工程基线，不声称等于MATLAB bicubic。每张图先预热，再测一次模型forward；它不是稳定延迟分布，不包括读图、数据传输和写图。
+预期生成 `summary.json`、含 4 条数据的 `per_image.csv` 和 4 张输出图片。摘要中的 `limited_run: true` 表示只评测了部分图片。完整结果的复核、各字段含义和常见错误见[项目与文件指南](docs/PROJECT_GUIDE.md)。
 
-`sr_lab/upstream.py`仅加载BasicSR指标子模块，避免顶层自动导入可选训练扩展，官方源码不被修改。这一阶段不声称验证了BasicSR所有训练模型。
+## 参考资料
 
-## 管理与分工
-
-见`PROGRESS.md`、`docs/TASKS.md`和`docs/API_DELEGATION.md`。用户指定的两个客户端配置只作为API连接资料读取；不执行配置中的hook，不提交配置与凭据。API真实供应商/模型、用量与失败状态均如实记录，不能仅凭客户端名称认定模型。
-
-## 论文
-
-Xiao Liu, Xiangyu Liao, Xiuya Shi, Linbo Qing, Chao Ren. Efficient Information Modulation Network for Image Super-Resolution. ECAI 2023, 1544–1551. DOI: [10.3233/FAIA230435](https://doi.org/10.3233/FAIA230435)。[作者代码](https://github.com/liux520/EIMN)。
-
-后续：补充独立训练集上的小规模训练与受控消融，再评估ONNX和真实设备部署。每阶段均保存环境、配置、结果与局限，不把缩减训练写成原论文全量复现。
+- 论文为 Xiao Liu、Xiangyu Liao、Xiuya Shi、Linbo Qing、Chao Ren 的 *Efficient Information Modulation Network for Image Super-Resolution*，ECAI 2023，1544–1551。[论文 DOI](https://doi.org/10.3233/FAIA230435) · [EIMN 作者代码](https://github.com/liux520/EIMN)
+- 数据与源码版本、许可及工作进度分别见[数据来源](docs/DATASETS.md)、[环境说明](docs/ENVIRONMENT.md)、[本项目代码许可](LICENSE)和[进度记录](PROGRESS.md)。
+- 两套外部 API 的分工、实际模型和用量见[双 API 说明](docs/API_DELEGATION.md)。
